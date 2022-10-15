@@ -1,0 +1,55 @@
+blueprint:
+  name: deCONZ - Sonoff Switch Mini
+  description: Control Sonoff Switch Mini button remote
+  domain: automation
+  input:
+    remote:
+      name: remote
+      description: Button to use
+      selector:
+        device:
+          integration: deconz
+          manufacturer: eWeLink
+          model: WB01
+
+    button_press_release:
+      name: "Single press (release)"
+      default: []
+      selector:
+        action: {}
+
+    button_long_press:
+      name: Long press
+      default: []
+      selector:
+        action: {}
+
+    button_double_press:
+      name: Double press
+      default: []
+      selector:
+        action: {}
+
+mode: restart
+max_exceeded: silent
+trigger:
+- platform: event
+  event_type: deconz_event
+  event_data:
+    device_id: !input 'remote'
+action:
+- variables:
+    event: '{{ trigger.event.data.event }}'
+- choose:
+
+  - conditions:
+    - '{{ event == 1002 }}'
+    sequence: !input 'button_press_release'
+
+  - conditions:
+    - '{{ event == 1003 }}'
+    sequence: !input 'button_long_press'
+
+  - conditions:
+    - '{{ event == 1004 }}'
+    sequence: !input 'button_double_press'
