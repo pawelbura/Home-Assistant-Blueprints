@@ -1,6 +1,6 @@
 blueprint:
-  name: deCONZ - Sonoff Switch Mini
-  description: Control Sonoff Switch Mini button remote
+  name: deCONZ - Sonoff Switch SNZB-01 – Zigbee
+  description: Control SONOFF SNZB-01 – Zigbee Wireless Switch
   domain: automation
   input:
     remote:
